@@ -1,0 +1,31 @@
+name: visionguard
+services:
+  mqtt:
+    image: eclipse-mosquitto:2
+    ports: ["127.0.0.1:1884:1883"]
+    volumes:
+      - ./infra/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - mqtt-data:/mosquitto/data
+    mem_limit: 128m
+  redis:
+    image: redis:7.2
+    profiles: [extensions]
+    ports: ["127.0.0.1:6380:6379"]
+    mem_limit: 256m
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "128mb", "--maxmemory-policy", "noeviction"]
+    volumes: ["redis-data:/data"]
+  postgres:
+    image: postgres:16
+    profiles: [extensions]
+    environment:
+      POSTGRES_DB: visionguard
+      POSTGRES_USER: visionguard
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-demo-change-before-exposing}
+    ports: ["127.0.0.1:5433:5432"]
+    mem_limit: 512m
+    volumes: ["pg-data:/var/lib/postgresql/data"]
+volumes:
+  mqtt-data:
+  redis-data:
+  pg-data:
+
