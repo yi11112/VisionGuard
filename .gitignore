@@ -1,0 +1,30 @@
+# 运行数据和模型
+data/
+models/
+
+# Python 环境和缓存
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 前端依赖和构建产物
+frontend/node_modules/
+frontend/dist/
+.npm-cache/
+
+# 本地配置和日志
+.env
+.env.*
+!.env.example
+*.log
+
+# 个人记录和发布工具
+ENVIRONMENT.md
+INTERVIEW.md
+requirements-windows-py311.lock.txt
+Publish-VisionGuard.ps1
+Publish-VisionGuard.cmd
+
+# 本地测试视频与报告
+samples/
